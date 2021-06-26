@@ -8,12 +8,12 @@
 	<form action="/auth/loginProc" method="POST">
 	
 		<div class="form-group">
-			<label for="username">아이디</label>
+			<label for="username"><b>아이디</b></label>
 			<input type="text" name="username" class="form-control" placeholder="Enter username" id="username">
 		</div>
 		
 		<div class="form-group">
-			<label for="password">비밀번호</label>
+			<label for="password"><b>비밀번호</b></label>
 			<input type="password" name="password" class="form-control" placeholder="Enter password" id="password">
 		</div>
 		

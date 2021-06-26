@@ -11,18 +11,18 @@
 		<input type="hidden" id="id" value="${principal.user.id }" />
 		
 		<div class="form-group">
-			<label for="username">아이디</label>
+			<label for="username"><b>아이디</b></label>
 			<%-- username은 수정이 안되게끔 readonly를 걸어준다 --%>
 			<input type="text" value="${principal.user.username }" class="form-control" placeholder="Enter username" id="username" readonly="readonly" />
 		</div>
 		
 		<div class="form-group">
-			<label for="password">비밀번호</label>
+			<label for="password"><b>비밀번호</b></label>
 			<input type="password" class="form-control" placeholder="Enter password" id="password" />
 		</div>
 		
 		<div class="form-group">
-			<label for="email">이메일</label>
+			<label for="email"><b>이메일</b></label>
 			<input type="email" class="form-control" placeholder="Enter email" id="email" />
 		</div>
 		

@@ -52,7 +52,7 @@ public class UserApiController {
 	@GetMapping("/auth/api/user/usernameCheck/{username}")
 	public int userUsernameCheck(@PathVariable String username) {
 		
-		System.out.println(username);
+		// System.out.println(username);
 
 		if(userService.아이디중복확인(username)) {
 			return 1;

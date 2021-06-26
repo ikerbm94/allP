@@ -7,26 +7,36 @@
 <div class="container">
 
 	<form>
-	
+		
 		<div class="form-group">
-			<label for="username">아이디</label>
-			<input type="text" class="form-control" placeholder="Enter username" id="username">
+			<label for="username"><b>아이디</b></label>
+			&nbsp;&nbsp;&nbsp;
+			<label><font style="color:#999; size:12px;">※ 5~20자 내로 영어와 숫자만 입력해주세요</font></label>
+			<input type="text" class="form-control" id="username">
 			<div id="username_check"></div>
 		</div>
 		
 		<div class="form-group">
-			<label for="password">비밀번호</label>
-			<input type="password" class="form-control" placeholder="Enter password" id="password">
+			<label for="password"><b>비밀번호</b></label>
+			&nbsp;&nbsp;&nbsp;
+			<label><font style="color:#999; size:12px;">※ 8~25자 내로 영문, 숫자, 특수문자(!, @, #, $, %, ^, &, *)를 각각 최소 한 개 이상 입력해주세요</font></label>
+			<input type="password" class="form-control" id="password">
+		</div>
+
+		<div class="form-group">
+			<label for="passwordSync"><b>비밀번호 확인</b></label>
+			<input type="password" class="form-control" id="passwordSync">
+			<div id="password_check"></div>
 		</div>
 		
 		<div class="form-group">
-			<label for="email">이메일</label>
-			<input type="email" class="form-control" placeholder="Enter email" id="email">
+			<label for="email"><b>이메일</b></label>
+			<input type="email" class="form-control" id="email">
 		</div>
 		
+		<input type="button" id="btn-save" class="btn btn-primary" value="회원가입" />
+		
 	</form>
-	
-	<button id="btn-save" class="btn btn-primary">회원가입</button>
 	
 </div>
 

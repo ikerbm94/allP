@@ -9,7 +9,15 @@ let joinFormIndex = {
 		});
 
 		$("#username").blur(() => {
-			this.check();
+			this.username_check();
+		});
+		
+		$("#password").blur(() => {
+			this.password_check();
+		});
+		
+		$("#passwordSync").blur(() => {
+			this.passwordSync_check();
 		});
 
 	},
@@ -55,37 +63,81 @@ let joinFormIndex = {
 		
 	},
 	
-	// 아이디 중복확인
-	check: function() {
+	username_check: function() { // 아이디 유효성 검사
 		
-		// alert('아이디 중복 체크');
-
-		// username 값 받아오기
 		let username = $("#username").val();
-
-		// console.log(username);
-
-		$.ajax({
-			type: "GET",										// 전송방법은 GET
-			url: "/auth/api/user/usernameCheck/"+username,		// 요청을 보낼 주소
-		// resp는 요청하여 받은 리턴값 (UserApiController의 userUsernameCheck() 메서드의 리턴값)														
-		}).done(function(resp) {	
-			
-			if (resp == 1) {
-				$("#username_check").text("이미 사용중인 아이디입니다.");
-				$("#username_check").css("color", "red");
-			} else if (resp == 0) {
-				$("#username_check").text("사용 가능한 아이디입니다.");
-				$("#username_check").css("color", "blue");
-			}
-			
-		// 요청을 실행하여 비정상이면 .fail을 실행한다
-		}).fail(function(error) {
-			alert(JSON.stringify(error));
-			
-			console.log(error);
-		});
 		
+		let usernameRegExp = /^[a-zA-z0-9]{5,20}$/; // 정규식 표현 (5~20자 내로 영문 혹은 숫자만)
+
+		if (username == "") {
+			$("#username_check").text("아이디를 입력해주세요");
+			$("#username_check").css("color", "red");
+		} else if (!usernameRegExp.test(username)) { // 정규식 표현 테스트
+			$("#username_check").text("사용 불가능한 아이디입니다");
+			$("#username_check").css("color", "red");
+		} else {
+			$.ajax({
+				type: "GET",
+				url: "/auth/api/user/usernameCheck/"+username,
+			}).done(function(resp) {
+				if (resp == 1) {
+					$("#username_check").text("이미 사용중인 아이디입니다"); // 중복
+					$("#username_check").css("color", "red");
+				} else if (resp == 0) {
+					$("#username_check").text("사용 가능한 아이디입니다");
+					$("#username_check").css("color", "blue");
+				}
+			}).fail(function(error) {
+				alert(JSON.stringify(error));
+			});
+		}
+		
+	},
+	
+	password_check: function() { // 비밀번호 유효성 검사
+	
+		let password = document.getElementById("password").value;
+		let passwordSync = document.getElementById("passwordSync").value;
+		
+		let passwordRegExp = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,25}$/; // 정규식 표현 (8~25자 내로 영문, 숫자, 특수문자(!, @, #, $, %, ^, &, *)가 한 개씩 이상)
+		
+		if (password == "" || passwordSync == "") {
+			$("#password_check").text("비밀번호를 입력해주세요");
+			$("#password_check").css("color", "red");
+		} else if (password != passwordSync) {
+			$("#password_check").text("비밀번호가 일치하지 않습니다");
+			$("#password_check").css("color", "red");
+		} else if (!passwordRegExp.test(passwordSync)) {
+			$("#password_check").text("사용 불가능한 비밀번호입니다");
+			$("#password_check").css("color", "red");
+		} else {
+			$("#password_check").text("사용 가능한 비밀번호입니다");
+			$("#password_check").css("color", "blue");
+		}
+		
+	},
+	
+	passwordSync_check: function() { // 비밀번호 확인 유효성 검사
+		
+		let password = document.getElementById("password").value;
+		let passwordSync = document.getElementById("passwordSync").value;
+		
+		let passwordRegExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^])(?=.*[0-9]).{8,25}$/; // 정규식 표현 (8~25자 내로 영문, 숫자, 특수문자(!, @, #, $, %, ^, &, *)가 한 개씩 이상)
+		
+		if (password == "" || passwordSync == "") {
+			$("#password_check").text("비밀번호를 입력해주세요");
+			$("#password_check").css("color", "red");
+		} else if (password != passwordSync) {
+			$("#password_check").text("비밀번호가 일치하지 않습니다");
+			$("#password_check").css("color", "red");
+		} else if (!passwordRegExp.test(passwordSync)) {
+			$("#password_check").text("사용 불가능한 비밀번호입니다");
+			$("#password_check").css("color", "red");
+		} else {
+			$("#password_check").text("사용 가능한 비밀번호입니다");
+			$("#password_check").css("color", "blue");
+		}
+
 	}
 
 }
