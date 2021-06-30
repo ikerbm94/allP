@@ -8,6 +8,7 @@ server:
       force: true
     
 spring:
+
   mvc:
     view:
       prefix: /WEB-INF/views/
@@ -33,3 +34,16 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+      
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ikerbm94@gmail.com
+    password: rlaqhals1!
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            

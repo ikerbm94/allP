@@ -19,6 +19,14 @@ let joinFormIndex = {
 		$("#passwordSync").blur(() => {
 			this.passwordSync_check();
 		});
+		
+		$("#domain_select").on("click", () => {
+			this.domain_select();
+		});
+		
+		$("#email_validate").on("click", () => {
+			this.email_validate();
+		});
 
 	},
 
@@ -123,7 +131,7 @@ let joinFormIndex = {
 		let passwordSync = document.getElementById("passwordSync").value;
 		
 		let passwordRegExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^])(?=.*[0-9]).{8,25}$/; // 정규식 표현 (8~25자 내로 영문, 숫자, 특수문자(!, @, #, $, %, ^, &, *)가 한 개씩 이상)
-		
+
 		if (password == "" || passwordSync == "") {
 			$("#password_check").text("비밀번호를 입력해주세요");
 			$("#password_check").css("color", "red");
@@ -138,6 +146,51 @@ let joinFormIndex = {
 			$("#password_check").css("color", "blue");
 		}
 
+	},
+	
+	domain_select: function() { // 이메일 도메인 선택
+		
+		let domain_select = $("#domain_select").val();
+
+		if (domain_select == "self") {
+			$("#domain").prop("readonly", false);
+			$("#domain").val("");
+		} else {
+			$("#domain").prop("readonly", true);
+			$("#domain").val(domain_select);
+		}
+		
+	},
+	
+	email_validate: function() { // 이메일 인증하기
+		
+		let address = $("#address").val();
+		let domain = $("#domain").val();
+		let email = address + "@" + domain ;
+		
+		let emailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // 이메일 정규식
+		
+		if (address == "" || domain == "" || !emailRegExp.test(email)){
+			$("#email_check").text("입력하신 이메일 주소를 확인해주세요");
+			$("#email_check").css("color", "red");
+		} else {
+			$("#email_check").text("입력하신 이메일 주소로 인증번호를 전송하였습니다");
+			$("#email_check").css("color", "blue");
+			
+			$.ajax({
+				type : "POST",
+				url : "/auth/api/user/emailCheck",
+				data: JSON.stringify(email),
+				contentType: "application/json; charset=utf-8",		
+				dataType :"json",
+			});
+			
+			alert("인증번호가 전송되었습니다.") 
+			
+			isCertification=true; //추후 인증 여부를 알기위한 값
+			
+		}
+		 
 	}
 
 }
