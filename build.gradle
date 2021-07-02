@@ -28,7 +28,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
-	implementation 'org.springframework.boot:spring-boot-starter-mail'			// 이메일인증 SMTP
+	
+	implementation 'org.springframework.boot:spring-boot-starter-mail'			// 이메일
+	implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'  // 이메일
 	
 	// 추가 라이브러리
 	implementation 'javax.servlet:jstl'											// JSTL

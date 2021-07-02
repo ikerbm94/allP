@@ -6,19 +6,31 @@
 
 <div class="container">
 	<form action="/auth/loginProc" method="POST">
-	
-		<div class="form-group">
-			<label for="username"><b>아이디</b></label>
-			<input type="text" name="username" class="form-control" placeholder="Enter username" id="username">
+
+		<p>
+			<b>아이디</b>
+		</p>
+		<div class="row">
+			<div class="col">
+				<input type="text" class="form-control" name="username">
+			</div>
+			<div class="col"></div>
 		</div>
-		
-		<div class="form-group">
-			<label for="password"><b>비밀번호</b></label>
-			<input type="password" name="password" class="form-control" placeholder="Enter password" id="password">
+		<br />
+
+		<p>
+			<b>비밀번호</b>
+		</p>
+		<div class="row">
+			<div class="col">
+				<input type="password" class="form-control" name="password">
+			</div>
+			<div class="col"></div>
 		</div>
+		<br/><br/>
 		
 		<button id="btn-login" class="btn btn-primary">로그인</button>
-		
+
 	</form>
 </div>
 

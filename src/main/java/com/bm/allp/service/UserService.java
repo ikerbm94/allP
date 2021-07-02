@@ -1,7 +1,5 @@
 package com.bm.allp.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,20 +36,40 @@ public class UserService {
 	@Transactional
 	public void 회원수정(int id, User userUpdate) {
 		
-		String rawPassword = userUpdate.getPassword();
-		String encPassword = encoder.encode(rawPassword);
-		String email = userUpdate.getEmail();
+		if (userUpdate.getEmail() == null) {
+			
+			String rawPassword = userUpdate.getPassword();
+			String encPassword = encoder.encode(rawPassword);
+			
+			// 수정시에는 일단 기존의 User 정보를 영속화시킨 후 수정하면 자동으로 update문을 JPA가 해결해준다
+			// 이때 findById로 가져온 객체는 Optional이기 때문에 orElseThrow를 해준다
+			User userPersistence = userRepository.findById(id).orElseThrow(()->{
+				return new IllegalArgumentException("회원 찾기 실패! 다음의 ID값을 찾을 수 없습니다 : " + id);
+			});
+			
+			// set하고 메서드가 끝나는 순간 commit이 자동으로 이루어진다 (DB에 update문이 실행된다) (더티체킹)
+			userPersistence.setPassword(encPassword);
+			
+		} else if (userUpdate.getPassword() == null) {
+			
+			String email = userUpdate.getEmail();
+			
+			// 수정시에는 일단 기존의 User 정보를 영속화시킨 후 수정하면 자동으로 update문을 JPA가 해결해준다
+			// 이때 findById로 가져온 객체는 Optional이기 때문에 orElseThrow를 해준다
+			User userPersistence = userRepository.findById(id).orElseThrow(()->{
+				return new IllegalArgumentException("회원 찾기 실패! 다음의 ID값을 찾을 수 없습니다 : " + id);
+			});
+			
+			// set하고 메서드가 끝나는 순간 commit이 자동으로 이루어진다 (DB에 update문이 실행된다) (더티체킹)
+			userPersistence.setEmail(email);
+			
+		}
 		
-		// 수정시에는 일단 기존의 User 정보를 영속화시킨 후 수정하면 자동으로 update문을 JPA가 해결해준다
-		// 이때 findById로 가져온 객체는 Optional이기 때문에 orElseThrow를 해준다
-		User userPersistence = userRepository.findById(id).orElseThrow(()->{
-			return new IllegalArgumentException("회원 찾기 실패! 다음의 ID값을 찾을 수 없습니다 : " + id);
-		});
-		
-		// set하고 메서드가 끝나는 순간 commit이 자동으로 이루어진다 (DB에 update문이 실행된다) (더티체킹)
-		userPersistence.setPassword(encPassword);
-		userPersistence.setEmail(email);
-		
+	}
+	
+	@Transactional
+	public void 회원탈퇴(int id) {
+		userRepository.deleteById(id);
 	}
 
 	@Transactional

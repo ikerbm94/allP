@@ -42,7 +42,7 @@ let replyIndex = {
 																
 		// 요청을 실행하여 정상이면 .done을 실행한다
 		}).done(function(resp){	// resp는 요청하여 받은 리턴값 (ReplyApiController의 replySave() 메서드의 리턴값)
-			alert("댓글 등록 완료되었습니다");
+			alert("댓글 등록이 완료되었습니다.");
 			// console.log(resp);
 			location.href="/board/detail/"+boardId;
 		// 요청을 실행하여 비정상이면 .fail을 실행한다
@@ -70,7 +70,7 @@ let replyIndex = {
 		// 요청을 실행하여 정상이면 .done을 실행한다
 		// resp는 요청하여 받은 리턴값 (ReplyApiController의 replyDelete() 메서드의 리턴값)
 		}).done(function(resp){	
-			alert("댓글 삭제가 완료되었습니다");
+			alert("댓글 삭제가 완료되었습니다.");
 			// console.log(resp);
 			location.href=`/board/detail/${boardId}`;
 		// 요청을 실행하여 비정상이면 .fail을 실행한다

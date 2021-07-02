@@ -1,10 +1,10 @@
 package com.bm.allp.controller.api;
 
 import java.util.Random;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +22,8 @@ public class UserApiController {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private JavaMailSenderImpl sender;
 	
 	// auth를 통해 비회원도 허용한다
 	// ajax의 기본 데이터 타입은 body 데이터이기 때문에 @RequestBody 사용
@@ -52,11 +54,17 @@ public class UserApiController {
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
 	
+	@PutMapping("/api/user/delete/{id}")
+	public ResponseDto<Integer> userDelete(@PathVariable int id) {
+		
+		userService.회원탈퇴(id);
+		
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+	}
+	
 	@GetMapping("/auth/api/user/usernameCheck/{username}")
 	public int userUsernameCheck(@PathVariable String username) {
 		
-		// System.out.println(username);
-
 		if(userService.아이디중복확인(username)) {
 			return 1;
 		} else {
@@ -65,18 +73,16 @@ public class UserApiController {
 		
 	}
 	
-	@PostMapping("/auth/api/user/emailCheck")
-	public void emailCheck(@RequestBody String email) {
-		
-		// System.out.println(email);
+	@PostMapping("/auth/api/user/emailCheck/{email}")
+	public String emailCheck(@PathVariable String email) {
 		
 		Random random = new Random();  // 난수 생성을 위한 랜덤 클래스
 		String code = "";  // 인증번호
 		
 		// 랜덤 알파벳 3개
 		for(int i = 0 ; i < 3 ; i++) {
-			int alphabet = (char)random.nextInt(25)+65; 
-			code += alphabet;
+			int alphabet = random.nextInt(25)+65; 
+			code += (char)alphabet;
 		}
 		
 		// 랜덤 숫자 4개
@@ -84,10 +90,13 @@ public class UserApiController {
 		code += number;
 		
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo(email); //스크립트에서 보낸 메일을 받을 사용자 이메일 주소
-		message.setSubject("인증번호 입력을 위한 메일 전송");
+		message.setTo(email);
+		message.setSubject("allP를 찾아주셔서 진심으로 감사드립니다");
 		message.setText("인증 번호 : " + code);
-		javaMailSender.send(message);
+		
+		sender.send(message);
+		
+		return code;
 	}
 	
 }

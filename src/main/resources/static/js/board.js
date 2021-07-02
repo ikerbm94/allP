@@ -52,7 +52,7 @@ let boardIndex = {
 																
 		// 요청을 실행하여 정상이면 .done을 실행한다
 		}).done(function(resp){	// resp는 요청하여 받은 리턴값 (BoardApiController의 boardSave() 메서드의 리턴값)
-			alert("글 작성이 완료되었습니다");
+			alert("글 작성이 완료되었습니다.");
 			// console.log(resp);
 			location.href="/";
 		// 요청을 실행하여 비정상이면 .fail을 실행한다
@@ -92,7 +92,7 @@ let boardIndex = {
 																
 		// 요청을 실행하여 정상이면 .done을 실행한다
 		}).done(function(resp){	// resp는 요청하여 받은 리턴값 (BoardApiController의 update 메서드의 리턴값)
-			alert("글 수정이 완료되었습니다");
+			alert("글 수정이 완료되었습니다.");
 			// console.log(resp);
 			location.href="/board/detail/"+boardId;
 		// 요청을 실행하여 비정상이면 .fail을 실행한다
@@ -121,7 +121,7 @@ let boardIndex = {
 																
 		// 요청을 실행하여 정상이면 .done을 실행한다
 		}).done(function(resp){	// resp는 요청하여 받은 리턴값 (BoardApiController의 delete 메서드의 리턴값)
-			alert("글 삭제가 완료되었습니다");
+			alert("글 삭제가 완료되었습니다.");
 			// console.log(resp);
 			location.href="/";
 		// 요청을 실행하여 비정상이면 .fail을 실행한다
