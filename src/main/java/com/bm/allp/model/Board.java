@@ -46,6 +46,10 @@ public class Board {
 	@Lob // 대용량 데이터
 	private String content; // 섬머노트 라이브러리와 <html>태그가 섞여서 들어가기 때문에 용량이 굉장히 커짐
 	
+	@Column(nullable = true)
+	private int password; // 글 비밀번호
+
+	@Column(nullable = true)
 	private int count; // 조회수
 	
 	@JoinColumn(name = "userId") // 컬럼명은 userId이다 (int) // Join을 해주는 컬럼값

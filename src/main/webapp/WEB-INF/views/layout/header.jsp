@@ -36,6 +36,134 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
 </head>
+
+<style>
+
+<%-- header --%>
+ 
+.navbar-nav > li > .dropdown-menu {
+	background-color: #343a40;
+}
+
+.navbar-nav > li > .dropdown-menu > .dropdown-item {
+	color: white;
+}
+
+.navbar-nav > li > .dropdown-menu > .dropdown-item:hover {
+	color: white;
+	background-color: #343a40;
+}
+
+<%-- footer --%>
+
+.full {
+    width: 100%;    
+}
+.gap {
+	height: 30px;
+	width: 100%;
+	clear: both;
+	display: block;
+}
+.footer {
+	background: #002147;
+	height: auto;
+	padding-bottom: 30px;
+	position: relative;
+	width: 100%;
+	border-bottom: 1px solid #CCCCCC;
+	border-top: 1px solid #DDDDDD;
+}
+.footer p {
+	margin: 0;
+}
+.footer img {
+	max-width: 100%;
+}
+.footer h3 {
+	color: white;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 27px;
+	padding: 40px 0 0px;
+	text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.footer h4 {
+	color: white;
+	font-size: 2em;
+	font-weight: 600;
+	line-height: 38px;
+	padding: 40px 0 10px;
+	font-family: cursive;
+  font-weight: lighter
+}
+
+.footer ul {
+	font-size: 13px;
+	list-style-type: none;
+	margin-left: 0;
+	padding-left: 0;
+	margin-top: 0px;
+	color: #7F8C8D;
+  padding: 0 0 8px 0;
+}
+
+.email{
+  border-bottom: 3px solid #fff;
+}
+.footer ul li a {
+	padding: 0 0 12px 0;
+	display: block;
+}
+.footer a {
+	color: white;
+  font-weight: lighter;
+}
+
+.footer p {
+	color: white;
+  font-weight: lighter;
+  font-size: 
+}
+
+.footer a:hover {
+	text-decoration:none;
+  font-weight: bold;
+}
+.supportLi h4 {
+	font-size: 20px;
+	font-weight: lighter;
+	line-height: normal;
+	margin-bottom: 0 !important;
+	padding-bottom: 0;
+}
+
+.bg-gray {
+	background-image: -moz-linear-gradient(center bottom, #BBBBBB 0%, #F0F0F0 100%);
+	box-shadow: 0 1px 0 #B4B3B3;
+}
+
+}
+.footer a {
+	color: #78828D
+}
+
+.footer-bottom {
+  margin-top: 2em;
+	border-top: 1px solid #DDDDDD;
+	padding-top: 20px;
+	padding-bottom: 10px;
+}
+.footer-bottom p.pull-left {
+	padding-top: 6px;
+  font-size: 0.75em
+}
+
+
+</style>
+
 <body>
 
 	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -53,23 +181,27 @@
 				<%-- security의 taglibs를 통해 principal을 받아옴 --%>
 				<%-- principal이 비어있을때 --%>
 				<c:when test="${empty principal }">
-					<ul class="navbar-nav">
+					<ul class="navbar-nav ml-auto">
 						<%-- UserController의 loginForm.jsp로 이동 --%>
 						<li class="nav-item"><a class="nav-link" href="/auth/loginForm">로그인</a></li>
 						<%-- UserController의 joinForm.jsp로 이동 --%>
 						<li class="nav-item"><a class="nav-link" href="/auth/joinForm">회원가입</a></li>
 					</ul>
+					
 				</c:when>
 
 				<%-- principal이 존재할때 --%>
 				<c:otherwise>
-					<ul class="navbar-nav mr-auto">
-						<li class="nav-item"><a class="nav-link" href="/board/saveForm">글쓰기</a></li>
-						<li class="nav-item"><a class="nav-link" href="/user/updateForm">회원정보</a></li>
-						<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
-					</ul>
 					<ul class="navbar-nav ml-auto">
-						<li class="nav-item"><a class="nav-link">${principal.user.username }님 안녕하세요!</a></li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" id="navbardrop" href="#" data-toggle="dropdown">${principal.user.username }님 안녕하세요!</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="/user/updateForm">회원수정</a>
+								<a class="dropdown-item" href="/board/list">QnA</a>
+								<hr class="dropdown-divider">
+								<a class="dropdown-item" href="/logout">로그아웃</a>
+							</div>
+						</li>
 					</ul>
 				</c:otherwise>
 

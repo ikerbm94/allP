@@ -22,14 +22,14 @@ public class BoardController {
 	// direction = Sort.Direction.DESC => 최신순으로 글을 띄운다
 	// http://localhost:8000
 	// http://localhost:8000/
-	@GetMapping({ "", "/" })
-	public String index(Model model,
-			@PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+	@GetMapping("/board/list")
+	public String list(Model model, @PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+		
 		model.addAttribute("boards", boardService.글목록(pageable));
-
+		
 		// viewResolvcer에 의해 boards값이 index.jsp로 넘어간다
 		// /WEB-INF/views/index.jsp
-		return "index";
+		return "board/list";
 	}
 
 	// 맵핑 주소가 "/auth/**"가 아니기 때문에 USER의 권한이 필요

@@ -15,7 +15,7 @@
 		</p>
 		<div class="row">
 			<div class="col">
-				<input type="text" class="form-control" id="username" value="${principal.user.username }" readonly="readonly">
+				<input type="text" class="form-control" value="${principal.user.username }" id="username" readonly="readonly">
 			</div>
 			<div class="col"></div>
 		</div>
@@ -26,7 +26,7 @@
 		</p>
 		<div class="row">
 			<div class="col">
-				<input type="password" class="form-control" value="${principal.user.password }" readonly="readonly">
+				<input type="password" class="form-control" readonly="readonly">
 			</div>
 			<div class="col">
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#password_modal">비밀번호 수정</button>
@@ -40,8 +40,7 @@
 				<div class="modal-content">
 					<div class="modal-body">
 
-						<font style="color: #999; size: 12px;">※ 8~25자 내로 영문, 숫자, 특수문자(!, @, #, $, %, ^, &, *)를 각각 최소 한 개 이상 입력해주세요.</font> <br />
-						<br />
+						<font style="color: #999; size: 12px;">※ 8~25자 내로 영문, 숫자, 특수문자(!, @, #, $, %, ^, &, *)를 각각 최소 한 개 이상 입력해주세요.</font> <br /> <br />
 
 						<p>
 							<b>비밀번호</b>
@@ -93,10 +92,9 @@
 		<div class="modal fade" id="email_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content">
-				
+
 					<div class="modal-body">
-						<font style="color: #999; size: 12px;">※ 이메일 인증후에 수정이 가능합니다.</font> <br />
-						<br />
+						<font style="color: #999; size: 12px;">※ 이메일 인증후에 수정이 가능합니다.</font> <br /> <br />
 
 						<p>
 							<b>이메일</b>
@@ -147,24 +145,24 @@
 
 						<div id="code_check"></div>
 					</div>
-					
+
 					<div class="modal-footer">
 						<input type="hidden" id="email_validation" value="0">
 						<button type="button" class="btn btn-primary" id="update_email">수정</button>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
-		
-		<br/><br/>
-		
-		<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#delete_modal">회원탈퇴</button>
-		
+
+		<br /> <br />
+
+		<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#delete_modal" style="float: right;">회원탈퇴</button>
+
 		<!-- 회원탈퇴 모달 -->
 		<div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content">
 					<div class="modal-body">
 						<font style="size: 12px;"><b>회원정보가 전부 삭제됩니다. 정말로 탈퇴하시겠습니까?</b></font>
@@ -179,8 +177,10 @@
 		</div>
 
 	</form>
-
 </div>
+
+<br />
+<br />
 
 <%-- static 폴더의 경로까지도 기본세팅이 되어있기 때문에 /js/user.js로 해도 문제없다 --%>
 <script src="/js/userUpdateForm.js"></script>

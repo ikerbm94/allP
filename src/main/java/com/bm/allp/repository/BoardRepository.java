@@ -10,5 +10,4 @@ import com.bm.allp.model.Board;
 // Board 테이블을 관리하는 Repository 만들기
 // Integer는 Board 테이블의 Primary Key의 타입
 public interface BoardRepository extends JpaRepository<Board,Integer> {
-	
 }
